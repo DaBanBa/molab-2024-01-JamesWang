@@ -31,23 +31,21 @@ struct ContentView: View {
             }
             .navigationTitle("How You Feeling?")
             .navigationDestination(for: String.self) { soundfile in
-                TimelineView(.animation) { context in
-                    VStack {
-                        Spacer()
-                        Rectangle()
-                        .fill(Color.blue)
-                        .frame(width: 100, height: CGFloat(min(max(amplitude, 0.0), 3.0) * 1000))
-                        .padding()
-                        HStack {
-                            Button("Play") {
-                                playSound(soundfile)
-                            }
-                            Button("Stop") {
-                                stopSound()
-                            }
+                VStack {
+                    Spacer()
+                    Rectangle()
+                    .fill(Color.blue)
+                    .frame(width: 100, height: CGFloat(min(max(amplitude, 0.0), 3.0) * 1000))
+                    .padding()
+                    HStack {
+                        Button("Play") {
+                            playSound(soundfile)
                         }
-                        Text(soundfile)
+                        Button("Stop") {
+                            stopSound()
+                        }
                     }
+                    Text(soundfile)
                 }
                 .onDisappear {
                     stopSound()
