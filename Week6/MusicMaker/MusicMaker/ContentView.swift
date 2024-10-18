@@ -12,18 +12,7 @@ struct ContentView: View {
     @State private var showPopup = false
     @State private var userInput: String = ""
     @State private var backgroundColor: Color = Color.white
-    
-    var wordList: [String] = [
-        "happy", "cat", "apple", "grape", "mango",
-        "peach", "berry", "cherry", "plum", "melon",
-        "lemon", "orange", "kiwi", "pearl", "stone",
-        "table", "chair", "glass", "light", "music",
-        "water", "bread", "pasta", "dance", "laugh",
-        "smile", "house", "paint", "brush", "color",
-        "world", "field"
-    ]
 
-    
     var body: some View {
         ZStack {
             VStack {
