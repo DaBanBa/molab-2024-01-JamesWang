@@ -15,8 +15,7 @@ import Foundation
 //
 func saveJSON<T: Encodable>(fileName: String, val: T) throws {
     let filePath = try documentPath(fileName: fileName);
-    print("saveJSON filePath \(filePath as Any)")
-    
+    print("filePath: \(filePath)")
     let encoder = JSONEncoder()
     encoder.outputFormatting = .prettyPrinted
     
@@ -28,8 +27,6 @@ func saveJSON<T: Encodable>(fileName: String, val: T) throws {
     
     // Terminal command 'cp' to copy output file to Downloads folder
     // The trailing period means use the same file name as the source
-    print("Model saveAsJSON encode str \(filePath as Any)")
-    print("cp \(filePath.absoluteString.dropFirst(7)) ~/Downloads/." )
 
     try str.write(to: filePath, atomically: true, encoding: .utf8)
 }
@@ -42,10 +39,8 @@ func loadJSON<T :Decodable>(_ type: T.Type, fileName: String) throws -> T {
     let filePath = try documentPath(fileName: fileName);
     let filePathExists = FileManager.default.fileExists(atPath: filePath.path)
     if !filePathExists {
-        print("loadJSON NO file at filePath \(filePath as Any)")
         throw FileError.missing;
     }
-    print("loadJSON filePath \(filePath as Any)")
     
     let jsonData = try String(contentsOfFile: filePath.path).data(using: .utf8)
     
