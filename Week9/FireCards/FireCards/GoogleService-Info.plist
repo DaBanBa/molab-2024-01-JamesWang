@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyDD1RfZ9gvhrv9UARa1Z3D866uOftBHf40</string>
+	<key>GCM_SENDER_ID</key>
+	<string>662292307455</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.DaBanBaMolab.FireCards</string>
+	<key>PROJECT_ID</key>
+	<string>firecards-9adef</string>
+	<key>STORAGE_BUCKET</key>
+	<string>firecards-9adef.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:662292307455:ios:f142542714a6c6e3af5bca</string>
+</dict>
+</plist>
