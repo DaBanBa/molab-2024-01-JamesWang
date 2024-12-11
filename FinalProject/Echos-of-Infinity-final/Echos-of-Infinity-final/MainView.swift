@@ -74,8 +74,6 @@ struct MainView: View {
                             ContentView(dataButtons: dataButtons, story: initStory, choices: choices, imageUrl: imageUrl, storyId: storyId, storyTitle: storyTitle)
                                 .transition(.opacity)
                         }.navigationBarBackButtonHidden(true)
-                        .animation(.easeInOut, value: navigateToContentView)
-                        
                         Button(action: {
                             getRemainingInventory()
                         }) {
