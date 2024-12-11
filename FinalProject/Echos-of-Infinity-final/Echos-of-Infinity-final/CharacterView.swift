@@ -60,7 +60,9 @@ struct CharacterView: View {
     @State private var navigateToBackstory = false
     @State private var isAwaitingResponse = false
     @State private var navigateToMainView = false
+    
     @ObservedObject private var keyboardResponder = KeyboardResponder()
+    @State private var keyboardHeight: CGFloat = 0
     
     init(tags: [String: Bool], descriptions: [String: String], storyTitle: String, storyText: String) {
         self._tags = State(initialValue: tags)
@@ -125,6 +127,7 @@ struct CharacterView: View {
                                         .multilineTextAlignment(.center)
                                         .foregroundColor(.black)
                                         .frame(maxWidth: .infinity, maxHeight: .infinity)
+                                        
                                         Rectangle()
                                             .frame(height: 1)
                                             .foregroundColor(.black)
@@ -139,6 +142,8 @@ struct CharacterView: View {
                         }
                         .padding()
                     }
+                    .padding(.bottom, keyboardHeight)
+                    .animation(.easeInOut(duration: 0.3), value: keyboardHeight)
                 }.padding(8)
                 
                 HStack(spacing: 0) {
@@ -203,14 +208,20 @@ struct CharacterView: View {
                 .padding(.horizontal, 24)
                 .edgesIgnoringSafeArea(.bottom)
             }
-            .padding(.bottom, keyboardResponder.currentHeight)
-            .animation(.easeInOut(duration: 0.3), value: keyboardResponder.currentHeight)
             .background(Color.white)
             .foregroundColor(Color.black)
             .edgesIgnoringSafeArea(.bottom)
             .navigationBarBackButtonHidden(true)
             .onTapGesture {
                 dismissKeyboard()
+            }
+            .onReceive(keyboardResponder.$currentHeight) { height in
+                if keyboardHeight == 0{
+                    keyboardHeight = height
+                }
+                if keyboardHeight != 0{
+                    keyboardHeight = height
+                }
             }
         }
     }
