@@ -10,6 +10,7 @@ import KeychainAccess
 
 struct MainView: View {
     @EnvironmentObject var appState: AppState
+    @Environment(\.horizontalSizeClass) var horizontalSizeClass
     @State private var navigateToMenuView = false
     @State private var Warning = ""
     @State private var isAwaitingResponse = false
@@ -49,12 +50,12 @@ struct MainView: View {
                     }
                     Spacer()
                 }
-                .padding(.horizontal, 20)
-                .padding(.top, 50)
+                .padding(.horizontal, horizontalSizeClass == .compact ? 20 : 40)
+                .padding(.top, horizontalSizeClass == .compact ? 50 : 248)
                 
                 Spacer()
                 if !showHistory {
-                    VStack(spacing: 24) {
+                    VStack(spacing: horizontalSizeClass == .compact ? 24 : 32) {
                         Text(Warning)
                             .font(.custom("BodoniModa9pt-Regular", size: 13))
                             .foregroundColor(Color.red)
@@ -93,7 +94,7 @@ struct MainView: View {
                                 RootView()
                                 .transition(.opacity)
                         }.navigationBarBackButtonHidden(true)
-                    }.padding(56)
+                    }.padding(horizontalSizeClass == .compact ? 56 : 128)
                 }
                     VStack{
                     Button(action: {
@@ -114,7 +115,7 @@ struct MainView: View {
                             HistoryView()
                                 .transition(.move(edge: .bottom))
                         }
-                    }.padding(.bottom, 32)
+                    }.padding(.bottom, horizontalSizeClass == .compact ? 32 : 348)
                     .frame(maxWidth: .infinity)
                     .background(Color.white)
                     .cornerRadius(48)
@@ -185,39 +186,42 @@ struct MainView: View {
     }
     
     private func getRemainingInventory() {
-        guard let email = appState.userEmail else {
-            print("Error: User not logged in.")
-            return
-        }
         
-        isAwaitingResponse = true
+        self.navigateToMenuView = true
         
-        let payload: [String: Any] = [
-            "email": email,
-        ]
-        
-        ServerConnection.shared.serverConnection(payload: payload, endpoint: "getRemainingInventory" ) { response in
-            DispatchQueue.main.async {
-                isAwaitingResponse = false
-                if let response = response {
-                    if let data = response.data(using: .utf8),
-                       let json = try? JSONSerialization.jsonObject(with: data, options: []),
-                       let dictionary = json as? [String: Any] {
-                        if let values = dictionary["permissionToAdd"] as? Bool {
-                            if values == true {
-                                self.navigateToMenuView = true
-                            }else {
-                                self.navigateToMenuView = false
-                                Warning = "You Have Reached Your Limit! Considering Upgrading your plan or delete previous stories!"
-                            }
-                        }
-                    } else {
-                        print("Failed to parse JSON")
-                    }
-                } else {
-                    print("No response from server")
-                }
-            }
-        }
+//        guard let email = appState.userEmail else {
+//            print("Error: User not logged in.")
+//            return
+//        }
+//        
+//        isAwaitingResponse = true
+//        
+//        let payload: [String: Any] = [
+//            "email": email,
+//        ]
+//        
+//        ServerConnection.shared.serverConnection(payload: payload, endpoint: "getRemainingInventory" ) { response in
+//            DispatchQueue.main.async {
+//                isAwaitingResponse = false
+//                if let response = response {
+//                    if let data = response.data(using: .utf8),
+//                       let json = try? JSONSerialization.jsonObject(with: data, options: []),
+//                       let dictionary = json as? [String: Any] {
+//                        if let values = dictionary["permissionToAdd"] as? Bool {
+//                            if values == true {
+//                                self.navigateToMenuView = true
+//                            }else {
+//                                self.navigateToMenuView = false
+//                                Warning = "You Have Reached Your Limit! Considering Upgrading your plan or delete previous stories!"
+//                            }
+//                        }
+//                    } else {
+//                        print("Failed to parse JSON")
+//                    }
+//                } else {
+//                    print("No response from server")
+//                }
+//            }
+//        }
     }
 }
